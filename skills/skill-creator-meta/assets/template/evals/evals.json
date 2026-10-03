@@ -1,0 +1,40 @@
+{
+  "skill": "TODO",
+  "arms": ["with_skill", "without_skill (기준선)", "crude (조악한 대조군)"],
+  "note": "자극은 다섯 개 이상으로 채운다. 그보다 적으면 결과에 검정력 부족을 적는다.",
+  "stimuli": [
+    {
+      "id": "1-typical",
+      "kind": "전형적인 성공",
+      "prompt": "TODO 실제 사용자 말투로. 파일 경로와 사연을 섞는다.",
+      "assertions": [
+        "TODO 양성 어서션 — 무엇을 했는지",
+        "TODO 사실 정확성 — 보고한 값이 입력과 일치하는지"
+      ]
+    },
+    {
+      "id": "2-insufficient",
+      "kind": "재료 부족",
+      "prompt": "TODO 정보가 빠진 요청",
+      "assertions": [
+        "TODO 멈추고 물었거나 모르는 부분을 명시했다",
+        "TODO 없는 정보를 지어내지 않았다"
+      ]
+    },
+    {
+      "id": "3-restraint",
+      "kind": "개입하면 안 되는 입력",
+      "prompt": "TODO 이미 잘 되어 있는 입력",
+      "assertions": [
+        "TODO 고칠 것이 없다고 판단했다",
+        "TODO 억지로 찾아낸 지적이 N개 이하다 (세는 단위를 정의할 것)"
+      ]
+    }
+  ],
+  "checked": {
+    "자극에 의도하지 않은 결함이 없는지 혼자 돌려 확인했다": false,
+    "부정형 어서션만 있지 않은지 확인했다": false,
+    "동어반복 어서션이 없는지 확인했다": false,
+    "채점을 만든 사람이 하지 않는다": false
+  }
+}

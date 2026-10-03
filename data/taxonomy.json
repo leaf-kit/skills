@@ -1,0 +1,286 @@
+{
+  "axis": "에이전트가 무엇을 대상으로 일하는가",
+  "tiebreak": [
+    "주된 산출물로 정한다",
+    "대상이 스킬 자신이면 G로 보낸다",
+    "스킬이 부속이면 H로 보낸다"
+  ],
+  "categories": {
+    "A1": [
+      "A 코드",
+      "개발 방법론"
+    ],
+    "A2": [
+      "A 코드",
+      "코드 리뷰와 품질"
+    ],
+    "A3": [
+      "A 코드",
+      "보안"
+    ],
+    "A4": [
+      "A 코드",
+      "코드 이해"
+    ],
+    "A5": [
+      "A 코드",
+      "게임 개발"
+    ],
+    "B1": [
+      "B 문서와 글",
+      "문서 생성과 변환"
+    ],
+    "B2": [
+      "B 문서와 글",
+      "글쓰기와 교정"
+    ],
+    "B3": [
+      "B 문서와 글",
+      "창작"
+    ],
+    "B4": [
+      "B 문서와 글",
+      "지식 정리와 노트"
+    ],
+    "C1": [
+      "C 시각물",
+      "디자인과 UI"
+    ],
+    "C2": [
+      "C 시각물",
+      "다이어그램"
+    ],
+    "C3": [
+      "C 시각물",
+      "슬라이드"
+    ],
+    "C4": [
+      "C 시각물",
+      "차트와 그림"
+    ],
+    "C5": [
+      "C 시각물",
+      "이미지 생성"
+    ],
+    "D1": [
+      "D 플랫폼과 인프라",
+      "클라우드와 제품 연동"
+    ],
+    "D2": [
+      "D 플랫폼과 인프라",
+      "언어와 프레임워크"
+    ],
+    "D3": [
+      "D 플랫폼과 인프라",
+      "데이터와 검색"
+    ],
+    "D4": [
+      "D 플랫폼과 인프라",
+      "브라우저와 웹 자동화"
+    ],
+    "D5": [
+      "D 플랫폼과 인프라",
+      "에이전트 개발 SDK"
+    ],
+    "E1": [
+      "E 사람과 조직의 일",
+      "제품과 기획"
+    ],
+    "E2": [
+      "E 사람과 조직의 일",
+      "마케팅과 광고"
+    ],
+    "E3": [
+      "E 사람과 조직의 일",
+      "구직과 커리어"
+    ],
+    "E4": [
+      "E 사람과 조직의 일",
+      "교육과 학습"
+    ],
+    "E5": [
+      "E 사람과 조직의 일",
+      "연구와 학술"
+    ],
+    "E6": [
+      "E 사람과 조직의 일",
+      "전문 영역"
+    ],
+    "F1": [
+      "F 에이전트 자신",
+      "메모리"
+    ],
+    "F2": [
+      "F 에이전트 자신",
+      "컨텍스트 비용"
+    ],
+    "F3": [
+      "F 에이전트 자신",
+      "계획과 상태"
+    ],
+    "F4": [
+      "F 에이전트 자신",
+      "오케스트레이션"
+    ],
+    "F5": [
+      "F 에이전트 자신",
+      "출력 방식"
+    ],
+    "F6": [
+      "F 에이전트 자신",
+      "자기 진화"
+    ],
+    "G1": [
+      "G 스킬 자신",
+      "스킬 생성과 변환"
+    ],
+    "G2": [
+      "G 스킬 자신",
+      "스킬 최적화와 평가"
+    ],
+    "G3": [
+      "G 스킬 자신",
+      "스킬 보안 검사"
+    ],
+    "G4": [
+      "G 스킬 자신",
+      "수집과 큐레이션"
+    ],
+    "G5": [
+      "G 스킬 자신",
+      "규격과 레지스트리"
+    ],
+    "H": [
+      "H 경계",
+      "스킬이 부속인 저장소"
+    ]
+  },
+  "assignments": {
+    "Agents365-ai/drawio-skill": "C2",
+    "AgriciDaniel/claude-ads": "E2",
+    "AgriciDaniel/claude-obsidian": "B4",
+    "ChenLiu-1996/figures4papers": "C4",
+    "CherryHQ/cherry-studio": "H",
+    "ComposioHQ/awesome-claude-skills": "G4",
+    "ConardLi/garden-skills": "G4",
+    "Devin-AXIS/iPolloWork": "H",
+    "DietrichGebert/ponytail": "A1",
+    "Egonex-AI/Understand-Anything": "A4",
+    "EverMind-AI/EverOS": "F1",
+    "EvoMap/evolver": "F6",
+    "GargantuaX/gemini-watermark-remover": "H",
+    "Gentleman-Programming/gentle-ai": "A1",
+    "HKUSTDial/Supervisor-Skills": "E5",
+    "JCodesMore/ai-website-cloner-template": "D4",
+    "Jeffallan/claude-skills": "A1",
+    "JimLiu/baoyu-skills": "G4",
+    "K-Dense-AI/scientific-agent-skills": "E5",
+    "KKKKhazix/khazix-skills": "G4",
+    "Leonxlnx/taste-skill": "C1",
+    "MemTensor/MemOS": "F1",
+    "NVIDIA/SkillSpector": "G3",
+    "NevaMind-AI/memU": "F1",
+    "OpenSenseNova/SenseNova-Skills": "B1",
+    "Orchestra-Research/AI-Research-SKILLs": "E5",
+    "OthmanAdi/planning-with-files": "F3",
+    "ParthJadhav/app-store-screenshots": "C5",
+    "Q00/ouroboros": "F6",
+    "SawyerHood/dev-browser": "D4",
+    "SnailSploit/Claude-Red": "A3",
+    "Sylinko/Everywhere": "H",
+    "ThinkInAIXYZ/deepchat": "H",
+    "TokenRhythm/opensquilla": "F2",
+    "Untrivial-ai/agent-orchestrator": "F4",
+    "WenyuChiou/awesome-agentic-ai-zh": "E4",
+    "YaoApp/yao": "H",
+    "addyosmani/agent-skills": "A1",
+    "aden-hive/hive": "H",
+    "agentscope-ai/QwenPaw": "H",
+    "alibaba/nacos": "H",
+    "alibaba/open-code-review": "A2",
+    "alirezarezvani/claude-skills": "G4",
+    "anbeime/skill": "G4",
+    "android/skills": "D2",
+    "antfu/skills": "G4",
+    "anthropics/claude-code": "H",
+    "anthropics/claude-plugins-official": "G4",
+    "anthropics/defending-code-reference-harness": "A3",
+    "anthropics/skills": "G5",
+    "anysearch-ai/anysearch-skill": "D3",
+    "ayghri/i-have-adhd": "F5",
+    "backnotprop/plannotator": "A2",
+    "blader/humanizer": "B2",
+    "browser-act/skills": "D4",
+    "career-ops-hq/career-ops": "E3",
+    "cathrynlavery/diagram-design": "C2",
+    "citrolabs/ego-lite": "D4",
+    "cloudflare/security-audit-skill": "A3",
+    "code-yeongyu/oh-my-openagent": "F4",
+    "composio-community/awesome-codex-skills": "G4",
+    "deanpeters/Product-Manager-Skills": "E1",
+    "dotnet/skills": "D2",
+    "eigent-ai/eigent": "H",
+    "epoko77-ai/im-not-ai": "B2",
+    "freestylefly/awesome-gpt-image-2": "C5",
+    "genspark-ai/genoffice": "H",
+    "github/awesome-copilot": "G4",
+    "google/agents-cli": "D5",
+    "google/skills": "D1",
+    "googleworkspace/cli": "H",
+    "gosom/google-maps-scraper": "D4",
+    "htdt/godogen": "A5",
+    "htmlstreamofficial/preline": "H",
+    "iOfficeAI/AionUi": "H",
+    "iOfficeAI/OfficeCLI": "B1",
+    "ibelick/ui-skills": "C1",
+    "internet-court/internet-court-skill": "E6",
+    "jihe520/MathModelAgent": "E5",
+    "jnMetaCode/superpowers-zh": "A1",
+    "kepano/obsidian-skills": "B4",
+    "krillinai/OpenCreator": "H",
+    "kubesphere/kubesphere": "H",
+    "kucherenko/jscpd": "A2",
+    "langgenius/dify": "H",
+    "larashero3-dotcom/lieflat-charts": "C4",
+    "latent-spaces/brag": "B2",
+    "lobehub/lobehub": "H",
+    "maziyarpanahi/openmed": "E6",
+    "mcp-use/mcp-use": "D5",
+    "microsoft/SkillOpt": "G2",
+    "mksglu/context-mode": "F2",
+    "nanocoai/nanoclaw": "H",
+    "nexu-io/html-anything": "C1",
+    "nexu-io/open-design": "C1",
+    "nidhinjs/prompt-master": "G1",
+    "ningzimu/codex-ppt-skill": "C3",
+    "obra/superpowers": "A1",
+    "op7418/guizang-ppt-skill": "C3",
+    "openai/skills": "G4",
+    "pacifio/atlas": "F3",
+    "pascalorg/editor": "H",
+    "phuryn/pm-skills": "E1",
+    "reactive-resume/reactive-resume": "H",
+    "refly-ai/refly": "G1",
+    "ruvnet/RuView": "H",
+    "ruvnet/ruflo": "H",
+    "shanraisshan/claude-code-best-practice": "A1",
+    "sickn33/agentic-awesome-skills": "G4",
+    "tech-leads-club/agent-skills": "G5",
+    "teng-lin/notebooklm-py": "E5",
+    "thedotmack/claude-mem": "F1",
+    "tigerless-labs/autoharness": "F6",
+    "titanwings/distilly": "G1",
+    "topoteretes/cognee": "F1",
+    "tradecatlabs/vibe-coding-cn": "E4",
+    "trailofbits/skills": "A3",
+    "tt-a1i/archify": "C2",
+    "tw93/Waza": "A1",
+    "virgiliojr94/book-to-skill": "G1",
+    "wanshuiyin/Auto-claude-code-research-in-sleep": "E5",
+    "wshobson/agents": "G4",
+    "wuyoscar/GPT-Image2-Skill": "C5",
+    "yusufkaraaslan/Skill_Seekers": "G1",
+    "zenstory-ai/oh-story-claudecode": "B3",
+    "zhayujie/CowAgent": "H"
+  }
+}
