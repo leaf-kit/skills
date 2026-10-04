@@ -16,8 +16,10 @@
     read:  'skills.read',
     theme: 'skills.theme',
     fs:    'skills.fs',
+    width: 'skills.width',
     last:  'skills.last',
-    fold:  'skills.fold'
+    fold:  'skills.fold',
+    stars: 'skills.stars'
   };
 
   var $  = function (s, r) { return (r || document).querySelector(s); };
@@ -52,6 +54,7 @@
     cache: {},        // path -> 원문
     scrollAt: {},     // path -> 스크롤 위치
     corpus: null,     // 본문 검색용 전체 원문
+    repos: null,      // 실재가 확인된 저장소 이름 -> 현재 이름
     mmdSeq: 0
   };
 
@@ -359,6 +362,32 @@
     else el.main.scrollTo({ top: top, behavior: 'smooth' });
   }
 
+  /* 본문의 `owner/repo` 는 깃허브 저장소를 가리킨다. 1500번쯤 나오는데 전부 맨 텍스트라
+     독자가 저장소를 보려면 주소창에 직접 쳐야 했다. 링크로 건다.
+
+     생김새로 판정하지 않는다. 저장소 안의 경로가 같은 모양이기 때문이다. 8.1 의
+     `ai/offensive-ai-security` 는 저장소가 아니라 Claude-Red 안의 디렉터리다. 그래서
+     viewer/build-repos.py 가 원고의 이름을 깃허브 API 로 전부 확인해 viewer/repos.json
+     에 적어 두고, 뷰어는 그 목록에 있는 것만 건다. 목록을 못 읽으면 하나도 걸지 않는다.
+     죽은 링크가 맨 텍스트보다 나쁘다. */
+  function linkRepos(root) {
+    var map = state.repos;
+    if (!map) return;
+    $$('code', root).forEach(function (c) {
+      if (c.closest('pre') || c.closest('a')) return;
+      var full = map[c.textContent.trim()];
+      if (!full) return;
+      var a = document.createElement('a');
+      a.className = 'repo';
+      a.href = 'https://github.com/' + full;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.title = full + ' — 깃허브에서 열기';
+      c.parentNode.insertBefore(a, c);
+      a.appendChild(c);
+    });
+  }
+
   /* 마크다운이 낸 HTML을 손본다 — 제목 id, 링크, 표, 코드 */
   function enhance(root, path) {
     var used = {};
@@ -402,6 +431,8 @@
         a.classList.add('ext');
       }
     });
+
+    linkRepos(root);
 
     $$('img[src]', root).forEach(function (img) {
       var src = img.getAttribute('src');
@@ -454,7 +485,13 @@
             startOnLoad: false,
             securityLevel: 'loose',
             theme: 'neutral',
-            fontFamily: '"Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif'
+            fontFamily: '"Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif',
+            fontSize: 15,
+            /* 라벨을 HTML 대신 SVG text 로 그린다. mermaid 는 본문 바깥에서 상자 크기를
+               재는데, HTML 라벨이면 본문의 line-height 와 letter-spacing 이 나중에 끼어들어
+               글자가 상자 밖으로 밀린다. text 라벨은 그 영향을 받지 않는다. */
+            htmlLabels: false,
+            flowchart: { htmlLabels: false, useMaxWidth: true, padding: 10 }
           });
         });
 
@@ -731,11 +768,68 @@
     document.documentElement.setAttribute('data-theme', t);
     store(LS.theme, t);
   }
+  /* 본문 너비. 글만 읽을 때는 좁은 쪽이 편하고, 11부처럼 표가 긴 장은 넓은 쪽이 편하다.
+     어느 쪽이 맞는지는 글이 아니라 읽는 사람이 정한다. */
+  var WIDTHS = [
+    { key: 'narrow', css: '680px',  name: '좁게' },
+    { key: 'normal', css: '840px',  name: '보통' },
+    { key: 'wide',   css: '1080px', name: '넓게' },
+    { key: 'full',   css: 'none',   name: '전체' }
+  ];
+
+  function applyWidth(key) {
+    var i = 0;
+    for (var k = 0; k < WIDTHS.length; k++) if (WIDTHS[k].key === key) i = k;
+    var w = WIDTHS[i];
+    document.documentElement.style.setProperty('--paper-w', w.css);
+    var lab = $('#width-label');
+    if (lab) lab.textContent = w.name;
+    var btn = $('#width');
+    if (btn) btn.title = '본문 너비 — ' + w.name + ' (W)';
+    store(LS.width, w.key);
+    return w.key;
+  }
+
+  function stepWidth() {
+    var cur = store(LS.width) || 'wide';
+    var i = 0;
+    for (var k = 0; k < WIDTHS.length; k++) if (WIDTHS[k].key === cur) i = k;
+    applyWidth(WIDTHS[(i + 1) % WIDTHS.length].key);
+  }
+
   function applyFs(n) {
     n = Math.max(15, Math.min(21, n));
     document.documentElement.style.setProperty('--fs', n + 'px');
     store(LS.fs, n);
     return n;
+  }
+
+  /* ───────── 별 개수 ───────── */
+
+  /* 깃허브 API 는 로그인 없이 시간당 60번이다. 한 시간 동안은 받아 둔 값을 쓴다.
+     못 받아 오면 개수 칸만 접고 Star 단추는 그대로 둔다. */
+  function loadStars() {
+    var cached = store(LS.stars);
+    var now = Date.now();
+    if (cached && cached.n != null && now - cached.at < 3600000) { showStars(cached.n); return; }
+
+    fetch('https://api.github.com/repos/leaf-kit/skills')
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error(r.status)); })
+      .then(function (d) {
+        if (typeof d.stargazers_count !== 'number') return;
+        store(LS.stars, { n: d.stargazers_count, at: now });
+        showStars(d.stargazers_count);
+      })
+      .catch(function () { if (cached && cached.n != null) showStars(cached.n); });
+  }
+
+  function showStars(n) {
+    var e = $('#star-n');
+    if (!e) return;
+    e.textContent = n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : String(n);
+    /* /stargazers 로 보내지 않는다. 깃허브가 그 페이지를 더 이상 열어 주지 않는다(404). */
+    e.title = '별 ' + n.toLocaleString('ko-KR') + '개';
+    e.hidden = false;
   }
 
   /* ───────── 연결 ───────── */
@@ -777,6 +871,7 @@
     $('#theme').addEventListener('click', function () {
       applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
+    $('#width').addEventListener('click', stepWidth);
     $('#font-up').addEventListener('click', function () { applyFs((store(LS.fs) || 17) + 1); });
     $('#font-down').addEventListener('click', function () { applyFs((store(LS.fs) || 17) - 1); });
 
@@ -797,7 +892,8 @@
       else if (e.key === 'ArrowRight') { step(1); }
       else if (e.key === 't' || e.key === 'T' || e.key === 'ㅅ') {
         applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-      } else if (e.key === 'Escape') { closeNav(); }
+      } else if (e.key === 'w' || e.key === 'W' || e.key === 'ㅈ') { stepWidth(); }
+      else if (e.key === 'Escape') { closeNav(); }
     });
 
     window.addEventListener('beforeunload', function () {
@@ -811,6 +907,8 @@
     var saved = store(LS.theme);
     applyTheme(saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
     applyFs(store(LS.fs) || 17);
+    applyWidth(store(LS.width) || 'wide');
+    loadStars();
 
     if (window.marked && marked.setOptions) {
       marked.setOptions({ gfm: true, breaks: false });
@@ -818,7 +916,13 @@
 
     wire();
 
-    fetchDoc(HOME).then(function (md) {
+    var repos = fetch(BASE + 'viewer/repos.json')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { if (d && d.repos) state.repos = d.repos; })
+      .catch(function () { /* 목록이 없으면 저장소 링크만 걸지 않는다 */ });
+
+    Promise.all([fetchDoc(HOME), repos]).then(function (out) {
+      var md = out[0];
       state.parts = parseToc(md);
       buildIndex();
       renderToc();

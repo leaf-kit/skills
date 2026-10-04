@@ -3,21 +3,13 @@
    종이를 책상 위에 올려 둔 모양을 유지하려는 것이다. */
 
 :root {
-  --paper: #f4f5f7;
-  --dark: #1b1e23;
-  --dark2: #24272e;
-  --dark3: #2b2f37;
-  --line: #363a44;
-  --accent: #7fb2d4;
-  --mute: #99a0ab;
-  --mute2: #727a86;
-
   --topbar-h: 58px;
   --footer-h: 34px;
   --side-w: 300px;
   --mini-w: 210px;
 
   --fs: 17px;
+  --paper-w: 1080px;
 
   --sans: "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "D2Coding", monospace;
@@ -25,6 +17,22 @@
 
 /* 본문 영역의 밝기 두 벌 */
 html[data-theme="light"] {
+  /* 바깥 테두리 */
+  --chrome: #e9ebef;
+  --chrome-deep: #fbfbfc;
+  --chrome-hi: #dde1e7;
+  --chrome-line: #d2d7de;
+  --chrome-fg: #1b1e23;
+  --chrome-mute: #5c6672;
+  --chrome-mute2: #79818d;
+  --chrome-item: #3b434f;
+  --chrome-rule: rgba(120, 130, 145, .28);
+  --accent: #1f6a9a;
+  --accent-hi: #2b85bd;
+  --on-accent: #fff;
+  --scrim: rgba(40, 46, 56, .4);
+
+  /* 본문 */
   --bg: #f4f5f7;
   --bg2: #e9ebef;
   --fg: #1b1e23;
@@ -43,6 +51,22 @@ html[data-theme="light"] {
   --shadow: 0 1px 2px rgba(20, 24, 30, .06);
 }
 html[data-theme="dark"] {
+  /* 바깥 테두리 */
+  --chrome: #24272e;
+  --chrome-deep: #1b1e23;
+  --chrome-hi: #2b2f37;
+  --chrome-line: #363a44;
+  --chrome-fg: #f4f5f7;
+  --chrome-mute: #99a0ab;
+  --chrome-mute2: #727a86;
+  --chrome-item: #c3c9d2;
+  --chrome-rule: rgba(54, 58, 68, .55);
+  --accent: #7fb2d4;
+  --accent-hi: #9dc7e2;
+  --on-accent: #11222c;
+  --scrim: rgba(10, 12, 15, .5);
+
+  /* 본문 */
   --bg: #15181d;
   --bg2: #1d2128;
   --fg: #dfe3e9;
@@ -68,13 +92,19 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background: var(--dark);
-  color: var(--paper);
+  background: var(--chrome-deep);
+  color: var(--chrome-fg);
   font-family: var(--sans);
   -webkit-text-size-adjust: 100%;
   overflow: hidden;
 }
-svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+/* 아이콘 전용 규칙이다. 본문까지 먹으면 mermaid 가 그린 그림이 1em 으로 찌그러진다.
+   머리말과 차례 안으로만 한정한다. */
+.topbar svg, #sidebar svg {
+  width: 1em; height: 1em;
+  fill: none; stroke: currentColor; stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round;
+}
 
 /* ───────── 머리말 ───────── */
 .topbar {
@@ -84,8 +114,8 @@ svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1
   align-items: center;
   gap: 14px;
   padding: 0 16px;
-  background: var(--dark2);
-  border-bottom: 1px solid var(--line);
+  background: var(--chrome);
+  border-bottom: 1px solid var(--chrome-line);
 }
 .mark {
   flex: 0 0 auto;
@@ -93,8 +123,8 @@ svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1
   place-items: center;
   width: 34px; height: 34px;
   border-radius: 7px;
-  background: var(--dark3);
-  border: 1px solid var(--line);
+  background: var(--chrome-hi);
+  border: 1px solid var(--chrome-line);
   color: var(--accent);
   text-decoration: none;
 }
@@ -109,7 +139,7 @@ svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1
 }
 .titles p {
   margin: 2px 0 0;
-  font-size: 12px; color: var(--mute);
+  font-size: 12px; color: var(--chrome-mute);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
@@ -120,13 +150,15 @@ svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1
   display: grid; place-items: center;
   min-width: 30px; height: 30px; padding: 0 7px;
   background: transparent;
-  border: 1px solid var(--line);
+  border: 1px solid var(--chrome-line);
   border-radius: 6px;
-  color: var(--paper);
+  color: var(--chrome-fg);
   font: inherit; font-size: 12.5px;
   cursor: pointer;
 }
 .icon-btn svg { width: 16px; height: 16px; }
+.icon-btn.with-label { gap: 6px; grid-auto-flow: column; padding: 0 9px; }
+.icon-btn.with-label span { font-size: 12px; }
 .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
 
 #theme .ic-moon { display: none; }
@@ -136,14 +168,42 @@ html[data-theme="dark"] #theme .ic-moon { display: block; }
 .btn {
   display: inline-block;
   padding: 7px 13px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--chrome-line);
   border-radius: 6px;
-  color: var(--paper);
+  color: var(--chrome-fg);
   font-size: 13px; text-decoration: none; white-space: nowrap;
 }
 .btn:hover { border-color: var(--accent); color: var(--accent); }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: #11222c; font-weight: 700; }
-.btn.primary:hover { background: #9dc7e2; color: #11222c; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 700; }
+.btn.primary:hover { background: var(--accent-hi); color: var(--on-accent); }
+
+/* 별 주기 — 왼쪽은 저장소로, 오른쪽은 별을 준 사람 목록으로 간다 */
+.star { display: flex; flex: 0 0 auto; }
+.star a {
+  display: flex; align-items: center; gap: 6px;
+  height: 30px; padding: 0 11px;
+  border: 1px solid var(--accent);
+  color: var(--on-accent); font-size: 13px; font-weight: 700;
+  text-decoration: none; white-space: nowrap;
+}
+.star-act {
+  background: var(--accent);
+  border-radius: 6px 0 0 6px;
+}
+.star-act:hover { background: var(--accent-hi); }
+.star-act svg { width: 15px; height: 15px; fill: currentColor; stroke: none; }
+/* .star a 보다 선택자가 약하면 글자색이 덮여 숫자가 배경에 묻는다 */
+.star a.star-n {
+  background: var(--chrome-deep);
+  color: var(--accent);
+  border-left: 0;
+  border-radius: 0 6px 6px 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.star a.star-n:hover { background: var(--chrome-hi); color: var(--chrome-fg); }
+.star-n[hidden] { display: none; }
+.star-act:only-child { border-radius: 6px; }
 
 /* ───────── 뼈대 ───────── */
 .shell {
@@ -160,40 +220,40 @@ html[data-theme="dark"] #theme .ic-moon { display: block; }
   display: flex;
   flex-direction: column;
   min-height: 0;
-  background: var(--dark2);
-  border-right: 1px solid var(--line);
+  background: var(--chrome);
+  border-right: 1px solid var(--chrome-line);
 }
 
-.side-search { flex: 0 0 auto; padding: 11px 12px 9px; border-bottom: 1px solid var(--line); }
+.side-search { flex: 0 0 auto; padding: 11px 12px 9px; border-bottom: 1px solid var(--chrome-line); }
 .field {
   display: flex; align-items: center; gap: 7px;
   padding: 0 8px;
   height: 34px;
-  background: var(--dark);
-  border: 1px solid var(--line);
+  background: var(--chrome-deep);
+  border: 1px solid var(--chrome-line);
   border-radius: 7px;
 }
 .field:focus-within { border-color: var(--accent); }
-.field svg { width: 15px; height: 15px; color: var(--mute2); flex: 0 0 auto; }
+.field svg { width: 15px; height: 15px; color: var(--chrome-mute2); flex: 0 0 auto; }
 .field input {
   flex: 1 1 auto; min-width: 0;
   background: none; border: 0; outline: none;
-  color: var(--paper); font: inherit; font-size: 13.5px;
+  color: var(--chrome-fg); font: inherit; font-size: 13.5px;
 }
-.field input::placeholder { color: var(--mute2); }
+.field input::placeholder { color: var(--chrome-mute2); }
 .field input::-webkit-search-cancel-button { display: none; }
-.field .icon-btn { border: 0; min-width: 20px; height: 20px; font-size: 16px; color: var(--mute); }
+.field .icon-btn { border: 0; min-width: 20px; height: 20px; font-size: 16px; color: var(--chrome-mute); }
 
 .wide-btn {
   display: block; width: 100%;
   margin-top: 8px; padding: 7px 9px;
-  background: var(--dark3); border: 1px solid var(--line); border-radius: 6px;
-  color: var(--paper); font: inherit; font-size: 12.5px; text-align: left;
+  background: var(--chrome-hi); border: 1px solid var(--chrome-line); border-radius: 6px;
+  color: var(--chrome-fg); font: inherit; font-size: 12.5px; text-align: left;
   cursor: pointer;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .wide-btn:hover { border-color: var(--accent); color: var(--accent); }
-.hint { margin: 7px 2px 0; font-size: 11.5px; color: var(--mute2); line-height: 1.5; }
+.hint { margin: 7px 2px 0; font-size: 11.5px; color: var(--chrome-mute2); line-height: 1.5; }
 
 .toc {
   flex: 1 1 auto;
@@ -202,46 +262,46 @@ html[data-theme="dark"] #theme .ic-moon { display: block; }
   overscroll-behavior: contain;
   padding: 8px 0 20px;
 }
-.toc .loading { padding: 14px; color: var(--mute2); font-size: 13px; }
+.toc .loading { padding: 14px; color: var(--chrome-mute2); font-size: 13px; }
 
-.toc .part { border-bottom: 1px solid rgba(54, 58, 68, .55); }
+.toc .part { border-bottom: 1px solid var(--chrome-rule); }
 .toc .part:last-child { border-bottom: 0; }
 .toc .part-h {
   display: flex; align-items: center; gap: 7px; width: 100%;
   padding: 9px 12px;
   background: none; border: 0;
-  color: var(--paper); font: inherit; font-size: 12.5px; font-weight: 700;
+  color: var(--chrome-fg); font: inherit; font-size: 12.5px; font-weight: 700;
   letter-spacing: -.2px; text-align: left;
   cursor: pointer;
 }
 .toc .part-h:hover { color: var(--accent); }
-.toc .part-h .caret { flex: 0 0 auto; width: 13px; height: 13px; color: var(--mute2); transition: transform .12s ease; }
+.toc .part-h .caret { flex: 0 0 auto; width: 13px; height: 13px; color: var(--chrome-mute2); transition: transform .12s ease; }
 .toc .part[data-open="0"] .caret { transform: rotate(-90deg); }
 .toc .part[data-open="0"] ul { display: none; }
-.toc .part-h .n { color: var(--mute2); font-weight: 600; }
+.toc .part-h .n { color: var(--chrome-mute2); font-weight: 600; }
 
 .toc ul { list-style: none; margin: 0; padding: 0 0 7px; }
 .toc li a {
   display: flex; align-items: baseline; gap: 8px;
   padding: 6px 12px 6px 28px;
-  color: #c3c9d2; font-size: 13px; line-height: 1.45;
+  color: var(--chrome-item); font-size: 13px; line-height: 1.45;
   text-decoration: none;
   border-left: 2px solid transparent;
 }
-.toc li a:hover { background: var(--dark3); color: #fff; }
-.toc li a .num { flex: 0 0 auto; color: var(--mute2); font-size: 12px; font-variant-numeric: tabular-nums; }
+.toc li a:hover { background: var(--chrome-hi); color: var(--chrome-fg); }
+.toc li a .num { flex: 0 0 auto; color: var(--chrome-mute2); font-size: 12px; font-variant-numeric: tabular-nums; }
 .toc li a .t { min-width: 0; }
 .toc li a.active {
-  background: var(--dark3);
+  background: var(--chrome-hi);
   border-left-color: var(--accent);
-  color: #fff; font-weight: 700;
+  color: var(--chrome-fg); font-weight: 700;
 }
 .toc li a.active .num { color: var(--accent); }
 .toc li a.read .num::after {
   content: "";
   display: inline-block; vertical-align: middle;
   width: 4px; height: 4px; margin-left: 5px;
-  border-radius: 50%; background: var(--mute2);
+  border-radius: 50%; background: var(--chrome-mute2);
 }
 .toc li a.active.read .num::after { background: var(--accent); }
 .toc li.hidden, .toc .part.hidden { display: none; }
@@ -250,17 +310,17 @@ html[data-theme="dark"] #theme .ic-moon { display: block; }
 .side-foot {
   flex: 0 0 auto;
   padding: 8px 12px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--chrome-line);
 }
 .link-btn {
   background: none; border: 0; padding: 0;
-  color: var(--mute2); font: inherit; font-size: 11.5px;
+  color: var(--chrome-mute2); font: inherit; font-size: 11.5px;
   text-decoration: underline; text-underline-offset: 2px;
   cursor: pointer;
 }
 .link-btn:hover { color: var(--accent); }
 
-.toc .resume { border-bottom: 1px solid rgba(54, 58, 68, .55); background: rgba(127, 178, 212, .07); }
+.toc .resume { border-bottom: 1px solid var(--chrome-rule); background: rgba(127, 178, 212, .1); }
 .toc .resume .num { color: var(--accent); font-weight: 700; }
 .toc .resume a { padding-left: 12px; }
 
@@ -283,7 +343,7 @@ html[data-theme="dark"] #theme .ic-moon { display: block; }
 .progress i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .1s linear; }
 
 .paper {
-  max-width: 820px;
+  max-width: var(--paper-w);
   margin: 0 auto;
   padding: 26px 40px 72px;
 }
@@ -351,13 +411,13 @@ html[data-theme="dark"] #theme .ic-moon { display: block; }
   height: var(--footer-h);
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
   padding: 0 16px;
-  background: var(--dark2);
-  border-top: 1px solid var(--line);
-  font-size: 11.5px; color: var(--mute2);
+  background: var(--chrome);
+  border-top: 1px solid var(--chrome-line);
+  font-size: 11.5px; color: var(--chrome-mute2);
 }
 .bottombar span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bottombar code { font-family: var(--mono); font-size: 11px; }
-.bottombar .keys { flex: 0 0 auto; color: var(--mute2); }
+.bottombar .keys { flex: 0 0 auto; color: var(--chrome-mute2); }
 
 /* ───────── 표지 ───────── */
 .hero {
@@ -392,8 +452,8 @@ html[data-theme="dark"] .hero-cover { box-shadow: 0 6px 22px rgba(0, 0, 0, .45);
   overflow: hidden; text-overflow: ellipsis;
 }
 .hero-btn:hover { border-color: var(--accent); }
-.hero-btn.primary { background: var(--accent); border-color: var(--accent); color: #11222c; }
-.hero-btn.primary:hover { background: #9dc7e2; }
+.hero-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.hero-btn.primary:hover { background: var(--accent-hi); }
 
 @media (max-width: 640px) {
   .hero { flex-direction: column; align-items: stretch; gap: 18px; }
@@ -514,7 +574,14 @@ html[data-theme="dark"] .hero-cover { box-shadow: 0 6px 22px rgba(0, 0, 0, .45);
   overflow-x: auto;
   text-align: center;
 }
-.md .mermaid svg { max-width: 100%; height: auto; stroke: none; fill: initial; }
+.md .mermaid svg { max-width: 100%; height: auto; }
+/* 본문 조판이 그림 안으로 새지 않게 막는다 */
+.md .mermaid { font-size: 15px; line-height: normal; letter-spacing: normal; word-break: normal; }
+
+/* 저장소 링크. 1500번 나오므로 ↗ 는 붙이지 않는다. 글자색만 바꾸고 밑줄은 올렸을 때 */
+.md a.repo { text-decoration: none; }
+.md a.repo code { color: var(--link); }
+.md a.repo:hover code { text-decoration: underline; text-underline-offset: 2px; }
 
 .md mark { background: var(--mark); color: var(--fg); padding: 0 2px; border-radius: 2px; }
 
@@ -557,7 +624,7 @@ html[data-theme="dark"] .hero-cover { box-shadow: 0 6px 22px rgba(0, 0, 0, .45);
 
 #scrim {
   position: absolute; inset: 0; z-index: 18;
-  background: rgba(10, 12, 15, .5);
+  background: var(--scrim);
   border: 0;
 }
 
@@ -570,7 +637,8 @@ html[data-theme="dark"] .hero-cover { box-shadow: 0 6px 22px rgba(0, 0, 0, .45);
   .only-narrow { display: grid; }
   .titles p { display: none; }
   .titles h1 { font-size: 14.5px; }
-  .fontsize, #gh-section { display: none; }
+  .fontsize, #gh-section, #width { display: none; }
+  .star a { padding: 0 9px; font-size: 12px; }
   .bottombar { display: none; }
 
   #sidebar {

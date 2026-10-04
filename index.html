@@ -20,6 +20,9 @@
     document.documentElement.setAttribute('data-theme', t);
     var f = JSON.parse(localStorage.getItem('skills.fs') || 'null');
     if (f) document.documentElement.style.setProperty('--fs', f + 'px');
+    var w = JSON.parse(localStorage.getItem('skills.width') || 'null');
+    var ws = { narrow: '680px', normal: '840px', wide: '1080px', full: 'none' };
+    if (w && ws[w]) document.documentElement.style.setProperty('--paper-w', ws[w]);
   } catch (e) {}
 </script>
 </head>
@@ -43,6 +46,12 @@
   </div>
 
   <div class="tools">
+    <button id="width" class="icon-btn with-label" aria-label="본문 너비 바꾸기" title="본문 너비 (W)">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 5v14M21 5v14M7.5 12h9M7.5 12l3-3M7.5 12l3 3M16.5 12l-3-3M16.5 12l-3 3"/>
+      </svg>
+      <span id="width-label">넓게</span>
+    </button>
     <div class="fontsize" role="group" aria-label="글자 크기">
       <button id="font-down" class="icon-btn" aria-label="글자 작게">A−</button>
       <button id="font-up" class="icon-btn" aria-label="글자 크게">A+</button>
@@ -52,7 +61,15 @@
       <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
     </button>
     <a class="btn" id="gh-section" href="https://github.com/leaf-kit/skills" target="_blank" rel="noopener">깃허브에서 보기</a>
-    <a class="btn primary" href="https://github.com/leaf-kit/skills" target="_blank" rel="noopener">저장소</a>
+    <div class="star">
+      <a class="star-act" href="https://github.com/leaf-kit/skills" target="_blank" rel="noopener"
+         title="깃허브에서 이 저장소에 별 주기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.65 5.37 5.93.86-4.29 4.18 1.01 5.9L12 16.92l-5.3 2.79 1.01-5.9L3.42 9.63l5.93-.86z"/></svg>
+        <span>Star</span>
+      </a>
+      <a class="star-n" id="star-n" href="https://github.com/leaf-kit/skills"
+         target="_blank" rel="noopener" hidden></a>
+    </div>
   </div>
 </header>
 
@@ -96,7 +113,7 @@
 
 <footer class="bottombar">
   <span>본문 62장과 부록 4편. 데이터는 2026-10-04 수집, 저장소 458개 중 상위 150개를 판정해 <code>SKILL.md</code> 보유 126개를 전수 분류했다.</span>
-  <span class="keys">←, → 이전 다음 절 &nbsp; / 검색 &nbsp; T 밝기</span>
+  <span class="keys">←, → 이전 다음 절 &nbsp; / 검색 &nbsp; W 너비 &nbsp; T 밝기</span>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
