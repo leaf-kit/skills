@@ -240,6 +240,7 @@ cd skills/skills/skill-creator-meta
 | 프롬프트부터 다듬고 싶다 | [2부 프롬프트 작성법](#2부--프롬프트-작성법) |
 | 남이 만든 스킬을 믿어도 되는지 알고 싶다 | [9.3 공급망 위험](part9/03-supply-chain.md) |
 | 에이전트에게 이 저장소를 읽히고 싶다 | [이 저장소를 스킬로 받아 쓴다](#이-저장소를-스킬로-받아-쓴다) |
+| 요즘 새로 뜨는 저장소가 궁금하다 | [추가 수집 — 트렌딩에서 찾은 신규 스킬](trending/README.md) |
 
 ---
 
@@ -360,6 +361,13 @@ cd skills/skills/skill-creator-meta
 - [C. 용어집](appendix/c-glossary.md)
 - [D. 참고 자료](appendix/d-references.md)
 
+### 추가 수집 — 트렌딩에서 찾은 신규 스킬
+
+정식 수집(월 1회, 458개) 사이에 발견한 것들이다. 아직 본문 숫자에는 들어가지 않는다.
+
+- [개요 — 왜 따로 관리하는가](trending/README.md)
+- [2026-10 로그](trending/2026-10.md)
+
 ---
 
 ## 이 책이 찾아낸 것
@@ -450,9 +458,9 @@ cd skills/skills/skill-creator-meta
 | 날짜 | 한 일 | 결과 |
 |---|---|---|
 | 2026-10-17 | 번들 스킬 2개(`skill-selector`, `skill-creator-meta`) 문서 재확인, 저장소 스타수 재조회 | 변경 없음, 스타수 1 |
-| 2026-10-17 | [github.com/trending](https://github.com/trending)에서 신규 저장소 3개 추가 확인 | `affaan-m/ECC`, `HKUDS/CLI-Anything`, `cursor/plugins` — 상세는 [`data/README.md`](data/README.md#트렌딩-보강-수집-2026-10-17) |
+| 2026-10-17 | [github.com/trending](https://github.com/trending)에서 신규 저장소 3개 추가 확인 | `affaan-m/ECC`, `HKUDS/CLI-Anything`, `cursor/plugins` — 상세는 [`trending/2026-10.md`](trending/2026-10.md) |
 
-**이 3개는 아직 본문 숫자(458개, 126개)에 들어가지 않았다.** `collect.sh`가 아니라 트렌딩 페이지에서 사람이 골라 개별 조회한 것이라 수집 방법이 다르고, 상위 150위를 엄밀히 다시 뽑지 않았기 때문이다. 다음 정식 재수집에서 정식 배정한다 — 근거와 전체 설명은 [`data/README.md`의 트렌딩 보강 수집](data/README.md#트렌딩-보강-수집-2026-10-17)에 있다.
+**이 3개는 아직 본문 숫자(458개, 126개)에 들어가지 않았다.** `collect.sh`가 아니라 트렌딩 페이지에서 사람이 골라 개별 조회한 것이라 수집 방법이 다르고, 상위 150위를 엄밀히 다시 뽑지 않았기 때문이다. 이렇게 발견한 것을 계속 쌓아 두는 체계를 따로 만들었다 — [`trending/`](trending/README.md)(읽는 책)와 [`data/trending/`](data/trending/README.md)(원본 데이터 + 추가 스크립트)다. 다음 정식 재수집에서 정식 배정한다.
 
 ## 기여
 

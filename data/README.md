@@ -13,12 +13,15 @@ data/
 ├── compare.py                 스냅샷 비교 (순위 변동)
 ├── taxonomy.json              분류 체계와 저장소 배정
 ├── latest -> snapshots/2026-10
-└── snapshots/
-    └── 2026-10/
-        ├── stars.tsv          수집 원본
-        ├── classified.tsv     판정 결과
-        ├── categories.tsv     MECE 분류 결과
-        └── meta.json          수집 메타
+├── snapshots/
+│   └── 2026-10/
+│       ├── stars.tsv          수집 원본
+│       ├── classified.tsv     판정 결과
+│       ├── categories.tsv     MECE 분류 결과
+│       └── meta.json          수집 메타
+└── trending/                  월 1회 정식 수집 사이에 찾은 것 (아직 미배정)
+    ├── add.sh                 저장소 1개 추가
+    └── 2026-10.tsv
 ```
 
 **스냅샷 디렉터리 이름이 날짜를 담으므로 파일명에는 날짜를 쓰지 않는다.** 정확한 수집일은 `meta.json`의 `collected_at`에 있다.
@@ -131,36 +134,9 @@ print(f'신규 배정 필요: {len(new)}개'); [print(' ',n) for n in new]
 |---|---|---|---|---|---|
 | 2026-10 | 2026-10-04 | 458 | 상위 150 | 126 | 126 |
 
-## 트렌딩 보강 수집 (2026-10-17)
+## 트렌딩 보강 수집
 
-`collect.sh`의 토픽 검색 + 기준점 저장소 방식과 별도로, [github.com/trending](https://github.com/trending)에서 오늘 주목받는 저장소 중 에이전트 스킬 생태계에 속하는 것을 추가로 확인했다. 출력: [`snapshots/2026-10/trending-additions-2026-10-17.tsv`](snapshots/2026-10/trending-additions-2026-10-17.tsv).
-
-**이 파일은 `stars.tsv`/`classified.tsv`/`categories.tsv`에 합치지 않았다.** 이유는 두 가지다.
-
-1. 수집 방법이 다르다. `collect.sh`는 토픽 검색과 고정 저장소 목록을 쓰고, 이번 건은 트렌딩 페이지에서 사람이 골라 `gh api`로 각각 조회했다. 섞으면 "458개"라는 숫자가 재현 불가능해진다.
-2. `classified.tsv`는 전체 458개를 스타수로 다시 정렬한 **상위 150위**다. 이번에 찾은 3개는 전부 5,445(현재 150위 컷오프)보다 훨씬 위라서, 엄밀히 합치려면 상위 150위를 처음부터 다시 뽑아야 한다. 그 작업은 다음 정식 재수집(`collect.sh` + `classify.sh`)으로 미룬다.
-
-새로 확인한 저장소 3개다. 전부 `SKILL.md`와 `skills/` 디렉터리를 실제로 가지고 있는지 파일 트리로 확인했고, 폐기·아카이브 표시가 없는지 README 첫 문단도 확인했다(**정밀 리뷰는 아니다** — 분류만 했다).
-
-| 스타 | 저장소 | 분류 | SKILL.md | 비고 |
-|---|---|---|---|---|
-| 281,670 | `affaan-m/ECC` | H 경계 — 스킬이 부속인 저장소 | 1,062개 | 에이전트 하니스가 본체, 스킬은 부속 기능 중 하나 |
-| 53,611 | `HKUDS/CLI-Anything` | G1 스킬 생성과 변환 | 151개 | 기존 CLI 도구마다 스킬을 생성해 "agent-native"로 바꾸는 도구 |
-| 12,046 | `cursor/plugins` | G4 수집과 큐레이션 | 165개 | Cursor 공식 플러그인 모음, 플러그인마다 스킬 포함 |
-
-(수집 날짜: 2026-10-17)
-
-**기존에 추적 중이던 저장소 5개도 트렌딩에 다시 떴다.** 2026-10-04 스냅샷과 비교한 스타수 변동이다. 참고용이며 `stars.tsv`는 고치지 않았다 — 458개 전체를 다시 조회해야 비교가 공정하기 때문이다.
-
-| 저장소 | 2026-10-04 | 2026-10-17 | 변동 |
-|---|---|---|---|
-| `obra/superpowers` | 294,779 | 300,776 | +5,997 |
-| `ruvnet/ruflo` | 73,778 | 75,719 | +1,941 |
-| `K-Dense-AI/scientific-agent-skills` | 47,467 | 51,674 | +4,207 |
-| `anthropics/claude-plugins-official` | 37,338 | 40,811 | +3,473 |
-| `mksglu/context-mode` | 25,190 | 30,302 | +5,112 |
-
-다음 정식 재수집(월 1회 데이터, 분기 1회 리뷰 — [9.6](../part9/06-update-policy.md))에서 이 3개를 포함해 상위 150위를 다시 뽑고, `taxonomy.json`에 정식 배정한다.
+정식 수집(위 표) 사이에 [github.com/trending](https://github.com/trending) 등에서 발견한 저장소는 여기 섞지 않고 [`trending/`](trending/README.md)에 계속 쌓는다. 수집 방법이 달라서(사람이 매일 바뀌는 목록에서 고른다) 섞으면 "458개"가 재현 불가능해지기 때문이다. 다음 정식 재수집에서 활성 상태가 확인되면 `PINNED`와 `taxonomy.json`에 정식으로 옮긴다 — 자세한 규칙과 추가 스크립트는 [`trending/README.md`](trending/README.md)에 있다.
 
 ## 주의
 

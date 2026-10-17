@@ -1,0 +1,4 @@
+stars	full_name	created_at	pushed_at	skill_md_count	has_skills_dir	truncated	category_code	category	subcategory	description	source	found_at
+281679	affaan-m/ECC	2026-01-18T00:51:51Z	2026-10-15T19:17:01Z	1062	true	false	H	H 경계	스킬이 부속인 저장소	The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.	github.com/trending	2026-10-17
+53618	HKUDS/CLI-Anything	2026-03-08T13:52:57Z	2026-09-22T02:01:29Z	151	true	false	G1	G 스킬 자신	스킬 생성과 변환	"CLI-Anything: Making ALL Software Agent-Native" -- CLI-Hub: https://clianything.cc/	github.com/trending	2026-10-17
+12055	cursor/plugins	2026-01-23T01:57:42Z	2026-10-17T04:28:31Z	165	true	false	G4	G 스킬 자신	수집과 큐레이션	Cursor plugin specification and official plugins	github.com/trending	2026-10-17
