@@ -213,6 +213,17 @@ cd skills/skills/skill-creator-meta
 
 **두 스킬 모두 자기 평가 결과가 없다.** 자극은 정의했고 측정은 아직 하지 않았다. 각 스킬의 `evals/README.md`에 그 사실을 적어 두었다.
 
+### 스킬 목록 (2026-10-17 확인)
+
+| 스킬 | 하는 일 | 경로 | 평가 결과 |
+|---|---|---|---|
+| `skill-selector` | 이미 있는 스킬을 고른다 | [`skills/skill-selector`](skills/skill-selector/SKILL.md) | 자극 5개 정의, 측정 미실시 |
+| `skill-creator-meta` | 없으면 스킬을 만든다 | [`skills/skill-creator-meta`](skills/skill-creator-meta/SKILL.md) | 자극 5개 정의, 측정 미실시 |
+
+**둘 다 `leaf-kit/skills` 한 저장소에 속한다.** 그래서 깃허브 스타수는 스킬마다 따로 있지 않고 저장소 하나에 붙는다 — 2026-10-17 확인 기준 **1개**(`pushed_at: 2026-10-04`). 이 숫자는 이 책이 리뷰하는 458개 저장소의 스타수와 같은 축이지만, 자기 자신의 값이라 리뷰 대상이 아니라 참고로만 적는다.
+
+**이번 확인에서 바뀐 것은 없다.** 두 스킬의 `SKILL.md`, `references/`, `scripts/`, `evals/`를 다시 열어 봤고 지난 수집(2026-10-04) 이후 구조나 설명에 변경이 없다. 변경이 없다는 사실도 기록으로 남긴다 — [9.6의 다섯 번째 원칙](part9/06-update-policy.md)이 조용히 덮어쓰지 말라고 한다.
+
 ---
 
 ## 읽는 경로
@@ -433,6 +444,15 @@ cd skills/skills/skill-creator-meta
 | 선별 규칙 재검토 | 3개월 |
 
 3개월을 고른 근거는 지식형 스킬의 신선도 기준이고, 큐레이션 저장소가 멈춘 사례(5개월)보다 짧게 잡았다. 규칙 전체는 [9.6](part9/06-update-policy.md)에 있다.
+
+**최근 확인 이력**
+
+| 날짜 | 한 일 | 결과 |
+|---|---|---|
+| 2026-10-17 | 번들 스킬 2개(`skill-selector`, `skill-creator-meta`) 문서 재확인, 저장소 스타수 재조회 | 변경 없음, 스타수 1 |
+| 2026-10-17 | [github.com/trending](https://github.com/trending)에서 신규 저장소 3개 추가 확인 | `affaan-m/ECC`, `HKUDS/CLI-Anything`, `cursor/plugins` — 상세는 [`data/README.md`](data/README.md#트렌딩-보강-수집-2026-10-17) |
+
+**이 3개는 아직 본문 숫자(458개, 126개)에 들어가지 않았다.** `collect.sh`가 아니라 트렌딩 페이지에서 사람이 골라 개별 조회한 것이라 수집 방법이 다르고, 상위 150위를 엄밀히 다시 뽑지 않았기 때문이다. 다음 정식 재수집에서 정식 배정한다 — 근거와 전체 설명은 [`data/README.md`의 트렌딩 보강 수집](data/README.md#트렌딩-보강-수집-2026-10-17)에 있다.
 
 ## 기여
 
